@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>JS生成二维码的方法</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link href="home/style.css" rel="stylesheet">
+	<script type="text/javascript" src="home/jquery.min.js"></script>
+	<script type="text/javascript" src="home/jquery.qrcode.min.js"></script>
+</head>
+<body>
+    <div class="share">
+    	<center><div class="share-ewm" id="code"></div></center>
+    </div>
+    <div class="demo">
+    	<p>
+    		1.引入JS文件
+			<pre>
+				&lt;script type="text/javascript" src="jquery.min.js"&gt;&lt;/script&gt;
+				&lt;script type="text/javascript" src="jquery.qrcode.min.js"&gt;&lt;/script&gt;
+			</pre>
+    	</p>
+    	<p>
+    		2.二维码显示位置定义
+    		<pre>
+				&lt;div class="share-ewm" id="code"&gt;&lt;/div&gt;
+			</pre>
+    	</p>
+    	<p>
+    		3.调用生成函数
+    		<pre>
+    			&lt;script&gt;
+					1.生成二维码基本方法
+					$('#code').qrcode("https://www.jianrenkang.com");
+
+					2.设定生成图片大小生成二维码方法
+					$("#code").qrcode({ 
+					    render: "table", //table方式 
+					    width: 320, //宽度 
+					    height: 320, //高度 
+					    text: "https://www.jianrenkang.com" //任意内容 
+					}); 
+
+					3.生成中文二维码的方法
+					//	将中文字符串转意
+					function toUtf8(str) {    
+					    var out, i, len, c;    
+					    out = "";    
+					    len = str.length;    
+					    for(i = 0; i < len; i++) {    
+					        c = str.charCodeAt(i);    
+					        if ((c >= 0x0001) && (c <= 0x007F)) {    
+					            out += str.charAt(i);    
+					        } else if (c > 0x07FF) {    
+					            out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));    
+					            out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));    
+					            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+					        } else {    
+					            out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));    
+					            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+					        }    
+					    }    
+					    return out;    
+					}
+
+					//	定义字符串
+					var str = toUtf8("看什么看，有啥好看的"); 
+
+					//	生成二维码
+					$('#code').qrcode({
+						render: "table", //table方式 
+					    width: 320, //宽度 
+					    height: 320, //高度 
+					    text: str //定义的字符串
+					 });
+				&lt;/script&gt;
+    		</pre>
+    	</p>
+    </div>
+	<script>
+		//	生成二维码基本方法
+		// $('#code').qrcode("http://www.baidu.com");
+
+		//	设定生成图片大小生成二维码方法
+		// $("#code").qrcode({ 
+		//     render: "table", //table方式 
+		//     width: 320, //宽度 
+		//     height: 320, //高度 
+		//     text: "https://www.jianrenkang.com" //任意内容 
+		// }); 
+
+		//	生成中文二维码的方法
+		//	将中文字符串转意
+		function toUtf8(str) {    
+		    var out, i, len, c;    
+		    out = "";    
+		    len = str.length;    
+		    for(i = 0; i < len; i++) {    
+		        c = str.charCodeAt(i);    
+		        if ((c >= 0x0001) && (c <= 0x007F)) {    
+		            out += str.charAt(i);    
+		        } else if (c > 0x07FF) {    
+		            out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));    
+		            out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));    
+		            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+		        } else {    
+		            out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));    
+		            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+		        }    
+		    }    
+		    return out;    
+		}
+
+		//	定义字符串
+		var str = toUtf8("看什么看，有啥好看的"); 
+
+		//	生成二维码
+		$('#code').qrcode({
+			render: "table", //table方式 
+		    width: 320, //宽度 
+		    height: 320, //高度 
+		    text: str //定义的字符串
+		 });
+	</script>
+    
+</body>
+</html>
